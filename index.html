@@ -28,7 +28,15 @@
                 radial-gradient(1200px 600px at -10% -10%, #e7f0ff 0%, transparent 60%),
                 radial-gradient(1200px 600px at 110% 10%, #ffedd5 0%, transparent 58%),
                 linear-gradient(180deg, var(--bg-a), var(--bg-b));
+            background-size: 140% 140%, 140% 140%, 100% 100%;
+            animation: bgShift 18s ease-in-out infinite alternate;
             color: var(--ink);
+        }
+
+        main p,
+        main li {
+            text-align: justify;
+            text-justify: inter-word;
         }
 
         .serif {
@@ -39,6 +47,29 @@
             background: var(--panel);
             border: 1px solid var(--line);
             backdrop-filter: blur(4px);
+            transition: transform 380ms ease, box-shadow 380ms ease, border-color 380ms ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 40px rgba(18, 32, 53, 0.12);
+            border-color: rgba(29, 78, 216, 0.28);
+        }
+
+        .card img {
+            transition: transform 650ms ease;
+        }
+
+        .card:hover img {
+            transform: scale(1.03);
+        }
+
+        a {
+            transition: transform 240ms ease, opacity 240ms ease, color 240ms ease, background-color 240ms ease;
+        }
+
+        a:hover {
+            transform: translateY(-1px);
         }
 
         .reveal {
@@ -52,6 +83,15 @@
         @keyframes reveal {
             from { opacity: 0; transform: translateY(14px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bgShift {
+            from {
+                background-position: 0% 0%, 100% 0%, 0% 0%;
+            }
+            to {
+                background-position: 10% 8%, 92% 6%, 0% 0%;
+            }
         }
     </style>
 </head>
@@ -92,10 +132,10 @@
                     <h1 class="serif mt-6 text-4xl sm:text-5xl lg:text-6xl leading-tight text-slate-900">
                         Building Practical, Scalable, and Professional Web Systems
                     </h1>
-                    <p class="mt-6 text-base sm:text-lg leading-relaxed text-slate-600 text-justify sm:text-left">
+                    <p class="mt-6 text-base sm:text-lg leading-relaxed text-slate-600 text-justify">
                         I am a Web Developer with an Information Technology background, focused on building web applications using PHP (CodeIgniter & Laravel), JavaScript, HTML, CSS, and MySQL.
                     </p>
-                    <p class="mt-4 text-base sm:text-lg leading-relaxed text-slate-600 text-justify sm:text-left">
+                    <p class="mt-4 text-base sm:text-lg leading-relaxed text-slate-600 text-justify">
                         I graduated in 2024 from Universitas Darma Persada with a degree in Information Technology, achieving a GPA of 3.36. During my studies, I developed a strong foundation in software development and practical problem-solving through various academic projects.
                     </p>
                     <div class="mt-8 flex flex-wrap gap-3">
