@@ -77,18 +77,19 @@
 
         .reveal {
             opacity: 0;
-            transform: translateY(18px) scale(0.995);
-            animation: reveal 920ms cubic-bezier(0.22, 1, 0.36, 1) both;
+            transform: translateY(34px) scale(0.98);
+            transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1), opacity 900ms cubic-bezier(0.22, 1, 0.36, 1);
+            transition-delay: var(--reveal-delay, 0ms);
         }
 
-        .delay-1 { animation-delay: 80ms; }
-        .delay-2 { animation-delay: 160ms; }
-        .delay-3 { animation-delay: 240ms; }
-
-        @keyframes reveal {
-            from { opacity: 0; transform: translateY(18px) scale(0.995); }
-            to { opacity: 1; transform: translateY(0); }
+        .reveal.in-view {
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }
+
+        .delay-1 { --reveal-delay: 90ms; }
+        .delay-2 { --reveal-delay: 180ms; }
+        .delay-3 { --reveal-delay: 270ms; }
 
         @keyframes bgShift {
             from {
@@ -120,6 +121,31 @@
         });
         window.addEventListener("pageshow", function () {
             window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+        });
+
+        window.addEventListener("DOMContentLoaded", function () {
+            var revealElements = document.querySelectorAll(".reveal");
+            if (!revealElements.length) return;
+
+            var observer = new IntersectionObserver(
+                function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("in-view");
+                        } else {
+                            entry.target.classList.remove("in-view");
+                        }
+                    });
+                },
+                {
+                    threshold: 0.2,
+                    rootMargin: "0px 0px -8% 0px"
+                }
+            );
+
+            revealElements.forEach(function (element) {
+                observer.observe(element);
+            });
         });
     </script>
 </head>
